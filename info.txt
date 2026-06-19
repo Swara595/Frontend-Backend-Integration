@@ -1,0 +1,35 @@
+npm run build - jo bhi code aapne react me likha hai, uska output 
+3 files me deti hai : html, css and js
+
+run npm run build in frontend folder
+
+npm run build will give you a dist folder which will contain 3 files html,css and js. Create a folder public inside backend folder and move these 3 files into public folder
+
+The dist folder does the same task that the react application does.
+
+Backend server is deployed on "Render"
+Frontend server is deployed on "Vercel"
+
+If u use free version of Vercel, it cannot serve multiple users 
+at the same time, it can at most serve 50 users at a time
+
+If u use free version of Render, it can serve at most 10 users at 
+a time
+
+If u deploy frontend and backend server differently, we need seperate amount for each of them and this results into higher price for deploying the web app.
+
+the more the storage increases, the more the no of CPUs u require increases the pricing for deployment on Vercel and Render
+
+If we deploy frontend and backend together, we will need less money.
+
+How do we deploy both frontend and backend together?
+- The dist folder does the same task that the react application does.
+- So we deploy the backend folder + dist folder on "Render"
+
+Steps to deploy frontend and backend together:
+- run "npm run build" in frontend folder, this will give you a dist folder that contains html, css and js files
+- create a folder called public inside "Backend" folder and move the 3 files of dist folder inside public folder
+- use middle ware app.use(express.static("./public")); //makes the files in public folder accessible to browser/user directly
+- if i write 'src' instead of public in the middleware app.use(express.static("./src")); //this makes all the files in src folder accessible to the user directly including the app.js files
+- whichever folder name u write in app.use(express.static(" ")) , the resources or assests of those folder are made publicly available
+- By doing this, u can access the frontend folder on backend server and both are deployed together

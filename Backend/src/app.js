@@ -1,25 +1,29 @@
 // server ko create krna 
 const express = require("express");
 const noteModel = require("./models/note.model");
+const cors = require("cors")
+const path = require("path")
 
-const app=express();
+const app = express();
 app.use(express.json()); // middleware to parse incoming JSON data
+app.use(cors())
+app.use(express.static("./public")); //makes the files in public folder accessible to browser
 
 /**
  * POST api/notes
  * create new note and save data to DB
  * req.body-{title,description}
  */
-app.post("/api/notes",async(req,res)=>{
-    const{title,description}=req.body;
+app.post("/api/notes", async (req, res) => {
+    const { title, description } = req.body;
 
     // to store data in DB we will use noteModel.create() method
-    const note= await noteModel.create({title,description})
+    const note = await noteModel.create({ title, description })
 
     res.status(201).json({
-        message:"note created successfully",
+        message: "note created successfully",
         note
-    })  
+    })
 
 })
 
@@ -27,12 +31,12 @@ app.post("/api/notes",async(req,res)=>{
  * GET api/notes
  * get all notes from DB and send them as response
  */
-app.get("/api/notes",async(req,res)=>{
-    const notes=await noteModel.find()
+app.get("/api/notes", async (req, res) => {
+    const notes = await noteModel.find()
     // .find() - returns data in form of array of objects
 
     res.status(200).json({
-        message:"notes retrieved successfully",
+        message: "notes retrieved successfully",
         notes
     })
 })
@@ -42,13 +46,13 @@ app.get("/api/notes",async(req,res)=>{
  * delete a note from DB based on id
  * req.params.id - id of note to be deleted
  */
-app.delete("/api/notes/:id",async(req,res)=>{
-    const id=req.params.id;
+app.delete("/api/notes/:id", async (req, res) => {
+    const id = req.params.id;
 
     await noteModel.findByIdAndDelete(id);
 
     res.status(200).json({
-        message:`note with id ${id} deleted successfully`
+        message: `note with id ${id} deleted successfully`
     })
 })
 
@@ -57,16 +61,25 @@ app.delete("/api/notes/:id",async(req,res)=>{
  * update a note in DB based on id
  * req.body = {description} - new description to be updated
  */
-app.patch("/api/notes/:id",async(req,res)=>{
-    const id=req.params.id;
-    const {description}=req.body;
+app.patch("/api/notes/:id", async (req, res) => {
+    const id = req.params.id;
+    const { description } = req.body;
 
-    await noteModel.findByIdAndUpdate(id,{description})
+    await noteModel.findByIdAndUpdate(id, { description })
 
     res.status(200).json({
-        message:`Note with id ${id} updated successfully`
+        message: `Note with id ${id} updated successfully`
     })
 
 })
 
-module.exports=app;
+app.use('*splat', (req, res) => {
+    /** '*' it is a wild card route , handles those api's which
+     * are not created
+     */
+    res.sendFile(path.join(__dirname, "..", '/public/index.html'))
+    // __dirname : konsi file kis folder me hai waha tak ka path deti hai
+    // "..": ek folder upar jao
+})
+
+module.exports = app;
