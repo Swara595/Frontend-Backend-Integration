@@ -77,7 +77,7 @@ app.use('*splat', (req, res) => {
     /** '*' it is a wild card route , handles those api's which
      * are not created
      */
-    res.sendFile(path.join(__dirname, "..", "public", 'index.html'))
+    res.sendFile(path.resolve(__dirname, "..", "public", 'index.html'))
     // __dirname : konsi file kis folder me hai waha tak ka path deti hai
     // "..": ek folder upar jao
 })
