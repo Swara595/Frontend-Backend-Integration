@@ -19,11 +19,18 @@ html {
 
 button {
   padding: 0.5rem 1rem;
-  background-color: #494949;
   color: rgb(255, 253, 249);
   border: none;
   border-radius: 0.7rem;
   cursor: pointer;
+}
+
+#delete-btn {
+  background-color: #eb2424;
+}
+
+#modify-btn {
+  background-color: #1cbc11;
 }
 
 .notes {

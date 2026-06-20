@@ -76,8 +76,8 @@ function App() {
             return <div className="note">
               <h1>{note.title}</h1>
               <p>{note.description}</p>
-              <button onClick={() => handleDeleteNote(note._id)}>Delete</button>
-              <button onClick={() => handleModifyNote(note._id)}>Modify</button>
+              <button id="delete-btn" onClick={() => handleDeleteNote(note._id)}>Delete</button>
+              <button id="modify-btn" onClick={() => handleModifyNote(note._id)}>Modify</button>
             </div>
 
           })
