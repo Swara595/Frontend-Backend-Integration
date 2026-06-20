@@ -19,10 +19,13 @@ html {
 
 button {
   padding: 0.5rem 1rem;
+  background-color: #1c1c1c;
   color: rgb(255, 253, 249);
   border: none;
   border-radius: 0.7rem;
   cursor: pointer;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 #delete-btn {
